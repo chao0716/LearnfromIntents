@@ -23,7 +23,7 @@ In this work, we propose a learning-based method for picking chanllenging object
 ### 2.2 Software
 The code is built with Python 3.6. Dependencies are listed in requirements.yaml and can be installed via [Anaconda](https://www.anaconda.com/) by running:
 
-    conda env create -n new_env -f requirements.yaml
+    conda env create -n new_env -f environment.yml
     
 ## 3. Intention estimator learning
 
