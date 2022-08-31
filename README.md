@@ -11,7 +11,7 @@ ___
 
 ### Code and Extras
 
-You can view the code [here](j;;).
+You can view the code [here](https://github.com/chao0716/LearnfromIntents).
 
 ### Paper
 
