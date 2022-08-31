@@ -6,11 +6,12 @@ In this work, we propose a learning-based method for picking chanllenging object
 
 **Picking in cluttered conveyor**
 <p align = "center">
-<img src="files/1.gif" width="640" height="360"> 
+<img src="1.gif" width="640" height="360"> 
 </p>
+
 **Picking in cluttered table**
 <p align = "center">
-<img src="files/0.gif" width="640" height="360"> 
+<img src="0.gif" width="640" height="360"> 
 </p>
 
 ## 2. Prerequisites
