@@ -4,7 +4,7 @@ import stable_baselines3
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-from rl_env_side import Sim
+from rl_env import Sim
 from real_L515 import L515
 from real_robot import RealRobot
 import os
@@ -33,72 +33,18 @@ l515.stop_streaming()
 print('have got depth')
 
 cz = verts[:, :, 2]
+
+cz[np.where(cz > 0.41)] = 1
+cp_w = 80
+cp_h = 64
+cz = cz[cp_h - 30: cp_h + 30, cp_w - 30: cp_w + 30]
 plt.imshow(cz)
+min_in_d = 0.3
+max_in_d = 0.41
 
-if len(np.where(cz[40:90, 50:110] < 0.35)[0]) > 100:
-    print('roll')
-    cz[np.where(cz > 0.41)] = 1
-    cz[np.where(cz < 0.3)] = 0.31
-    cp_w = 80
-    cp_h = 64
-    cz = cz[cp_h - 30: cp_h + 30, cp_w - 30: cp_w + 30]
-    plt.imshow(cz)
-
-    min_in_d = 0.3
-    max_in_d = 0.41
-
-    process_depth = cz.copy()
-    process_depth = (process_depth-min_in_d)/(max_in_d-min_in_d)*255
-    process_depth[np.where(cz > 0.5)] = 255
-    plt.imshow(process_depth)
-
-    mask = np.load('mask_roll.npy')
-    process_depth[np.where(process_depth > 100)] = 231
-    process_depth[np.where(mask == 255)] = 255
-    plt.imshow(process_depth)
-
-elif len(np.where(cz[40:90, 50:110] < 0.382)[0]) > 50:
-    print('td')
-    cz[np.where(cz > 0.41)] = 1
-    cz[np.where(cz > 0.383)] = 0.4
-    cp_w = 80
-    cp_h = 64
-    cz = cz[cp_h - 30: cp_h + 30, cp_w - 30: cp_w + 30]
-    plt.imshow(cz)
-    min_in_d = 0.3
-    max_in_d = 0.41
-
-    process_depth = cz.copy()
-    process_depth = (process_depth-min_in_d)/(max_in_d-min_in_d)*255
-    process_depth[np.where(cz > 0.5)] = 255
-    plt.imshow(process_depth)
-
-    mask = np.load('mask_td.npy')
-    process_depth[np.where(process_depth > 188)] = 231
-    process_depth[np.where(mask == 255)] = 255
-    # process_depth[np.where(process_depth < 231)] = 174
-    plt.imshow(process_depth)
-
-elif len(np.where(cz[40:90, 50:110] < 0.39)[0]) > 100:
-    print('side')
-    cz[np.where(cz > 0.41)] = 1
-    cp_w = 80
-    cp_h = 64
-    cz = cz[cp_h - 30: cp_h + 30, cp_w - 30: cp_w + 30]
-    plt.imshow(cz)
-    min_in_d = 0.3
-    max_in_d = 0.41
-
-    process_depth = cz.copy()
-    process_depth = (process_depth-min_in_d)/(max_in_d-min_in_d)*255
-    process_depth[np.where(cz > 0.5)] = 255
-    plt.imshow(process_depth)
-
-    mask = np.load('mask_side.npy')
-    process_depth[np.where(process_depth > 220)] = 231
-    process_depth[np.where(mask == 255)] = 255
-    process_depth[np.where(process_depth < 231)] = 221
-    plt.imshow(process_depth)
+process_depth = cz.copy()
+process_depth = (process_depth-min_in_d)/(max_in_d-min_in_d)*255
+process_depth[np.where(cz > 0.5)] = 255
 
 process_depth = process_depth[np.newaxis, :, :]
 process_depth = np.array(process_depth).astype(np.uint8)

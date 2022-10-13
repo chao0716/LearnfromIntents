@@ -5,7 +5,7 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.vec_env import SubprocVecEnv
 import os
 from stable_baselines3.common.env_util import make_vec_env
-from rl_env_all3_bin import Sim
+from rl_env import Sim
 import torch
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
